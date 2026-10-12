@@ -2,13 +2,19 @@ import java.io.*;
 
 public class FiltreLog {
     public static void main(String[] args) throws IOException {
+        String paraula;
+        if (args.length > 0) {
+            paraula = args[0];
+        } else {
+            paraula = "ERROR";
+        }
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
+
         int comptador = 0;
         int linies = 0;
         String linia;
         while((linia = br.readLine()) != null) {
-            if(linia.contains("ERROR")) {
+            if(linia.contains(paraula)) {
                 comptador++;
             }
             linies++;
