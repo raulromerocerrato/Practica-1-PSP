@@ -5,12 +5,20 @@ public class FiltreLog {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         
         int comptador = 0;
+        int linies = 0;
         String linia;
         while((linia = br.readLine()) != null) {
             if(linia.contains("ERROR")) {
                 comptador++;
             }
+            linies++;
         }
-        System.out.println(comptador);
+        if(linies > 0) {
+            System.out.println(comptador);
+            System.exit(0);
+        } else {
+            System.err.println("Error: Text buit");
+            System.exit(1);
+        }
     }
 }
