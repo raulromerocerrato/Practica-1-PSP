@@ -9,7 +9,7 @@ public class AnalitzadorPrincipal {
             + "ERROR: Hola món\n"
             + "WARNING: Hola món\n"
             + "WARNING: Hola món\n";
-            
+
         ProcessBuilder pbA = new ProcessBuilder("java", "-cp", classpath, "FiltreLog", "ERROR");
         ProcessBuilder pbB = new ProcessBuilder("java", "-cp", classpath, "FiltreLog", "WARNING");
         pbA.redirectError(new File("errors_filtre.log"));
@@ -47,5 +47,12 @@ public class AnalitzadorPrincipal {
         } else {
             System.err.println("El procés fill B ha donat error, consulta a errors_filtre.log. Codi de sortida: " + codiSortidaB);
         }
+        int exitCode;
+        if (codiSortidaA == 0 && codiSortidaB == 0) {
+            exitCode = 0;
+        } else {
+            exitCode = 1;
+        }
+        System.out.println("RESULTAT: ERRORS=" + respostaA + " | WARNINGS=" + respostaB + " | EXIT_CODE=" + exitCode);
     }
 }
