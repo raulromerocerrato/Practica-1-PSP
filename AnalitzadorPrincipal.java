@@ -17,19 +17,22 @@ public class AnalitzadorPrincipal {
         Process processA = pbA.start();
         Process processB = pbB.start();
 
-        BufferedWriter outA = new BufferedWriter(new OutputStreamWriter(processA.getOutputStream()));
-        BufferedWriter outB = new BufferedWriter(new OutputStreamWriter(processB.getOutputStream()));
-        outA.write(text);
-        outB.write(text);
-        outA.flush();
-        outB.flush();
-        outA.close();
-        outB.close();
+        try (BufferedWriter outA = new BufferedWriter(new OutputStreamWriter(processA.getOutputStream()));
+             BufferedWriter outB = new BufferedWriter(new OutputStreamWriter(processB.getOutputStream()))) {
+            outA.write(text);
+            outB.write(text);
+            outA.flush();
+            outB.flush();
+        }
 
-        BufferedReader inA = new BufferedReader(new InputStreamReader(processA.getInputStream()));
-        String respostaA = inA.readLine();
-        BufferedReader inB = new BufferedReader(new InputStreamReader(processB.getInputStream()));
-        String respostaB = inB.readLine();
+        String respostaA;
+        String respostaB;
+        try (BufferedReader inA = new BufferedReader(new InputStreamReader(processA.getInputStream()));
+             BufferedReader inB = new BufferedReader(new InputStreamReader(processB.getInputStream()))) {
+            respostaA = inA.readLine();
+            respostaB = inB.readLine();
+        }
+
         System.out.println("El fill A diu: " + respostaA);
         System.out.println("El fill B diu: " + respostaB);
         processA.waitFor();
