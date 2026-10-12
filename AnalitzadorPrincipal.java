@@ -1,0 +1,23 @@
+import java.io.*;
+
+public class AnalitzadorPrincipal {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        String classpath = System.getProperty("java.class.path");
+        ProcessBuilder pb = new ProcessBuilder("java", "-cp", classpath, "FiltreLog");
+        pb.redirectErrorStream(true);
+        Process process = pb.start();
+
+        BufferedWriter out = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+        out.write("ERROR: Hola món\n");
+        out.write("Hola món\n");
+        out.write("ERROR: Hola món\n");
+        out.write("ERROR: Hola món\n");
+        out.flush();
+        out.close();
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        String resposta = in.readLine();
+        System.out.println("El fill diu: " + resposta);
+        process.waitFor();
+    }
+}
