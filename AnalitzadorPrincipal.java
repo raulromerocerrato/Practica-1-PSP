@@ -40,16 +40,6 @@ public class AnalitzadorPrincipal {
 
         int codiSortidaA = processA.exitValue();
         int codiSortidaB = processB.exitValue();
-        if (codiSortidaA == 0) {
-            System.out.println("El procés fill A ha acabat correctament.");
-        } else {
-            System.err.println("El procés fill A ha donat error, consulta a errors_filtre.log. Codi de sortida: " + codiSortidaA);
-        }
-        if (codiSortidaB == 0) {
-            System.out.println("El procés fill B ha acabat correctament.");
-        } else {
-            System.err.println("El procés fill B ha donat error, consulta a errors_filtre.log. Codi de sortida: " + codiSortidaB);
-        }
         int exitCode;
         if (codiSortidaA == 0 && codiSortidaB == 0) {
             exitCode = 0;
